@@ -1,0 +1,6 @@
+<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 300'>
+  <defs><linearGradient id='g' x1='0' x2='1'><stop offset='0' stop-color='#ff7a1a'/><stop offset='1' stop-color='#ff2f1f'/></linearGradient></defs>
+  <rect width='300' height='300' rx='36' fill='#1a120e'/>
+  <path d='M150 46c27 33 34 56 21 86-9 19-27 30-48 30 28-14 37-45 20-70-7 20-30 25-39 53-10 30 13 64 46 64 44 0 72-45 60-86-6-22-24-47-60-77z' fill='url(#g)'/>
+  <text x='150' y='248' text-anchor='middle' fill='#f7e0cc' font-size='42' font-family='Georgia,serif' font-weight='700'>TAIFIRE</text>
+</svg>
