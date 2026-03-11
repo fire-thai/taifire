@@ -40,34 +40,23 @@ jobs:
         uses: actions/github-script@v8
         with:
           script: |
-            try {
-              await github.request('PATCH /repos/{owner}/{repo}/pages', {
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                build_type: 'workflow',
-              });
-              core.info('GitHub Pages is configured to deploy from workflows.');
-            } catch (error) {
-              core.warning(`Could not update GitHub Pages settings automatically: ${error.message}`);
+            await github.request('PATCH /repos/{owner}/{repo}/pages', {
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              build_type: 'workflow',
+            });
+
+            const response = await github.request('GET /repos/{owner}/{repo}/pages', {
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+            });
+
+            if (response.data.build_type !== 'workflow') {
+              core.setFailed(`Pages build_type is ${response.data.build_type}; expected workflow.`);
+              return;
             }
 
-      - name: Ensure Pages has branch deployment fallback
-        uses: actions/github-script@v8
-        with:
-          script: |
-            try {
-              await github.request('PATCH /repos/{owner}/{repo}/pages', {
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                source: {
-                  branch: 'gh-pages',
-                  path: '/'
-                }
-              });
-              core.info('GitHub Pages fallback source set to gh-pages branch.');
-            } catch (error) {
-              core.warning(`Could not configure branch fallback automatically: ${error.message}`);
-            }
+            core.info('GitHub Pages is configured to deploy from workflows.');
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
