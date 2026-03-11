@@ -1,0 +1,13 @@
+<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1600 900'>
+<defs>
+  <linearGradient id='bg' x1='0' y1='0' x2='0' y2='1'>
+    <stop offset='0' stop-color='#1c120d'/><stop offset='1' stop-color='#080505'/>
+  </linearGradient>
+  <radialGradient id='fl' cx='50%' cy='100%' r='60%'>
+    <stop offset='0' stop-color='#ffbf4d' stop-opacity='.85'/><stop offset='.4' stop-color='#ff6b1a' stop-opacity='.45'/><stop offset='1' stop-color='#ff2d1f' stop-opacity='0'/>
+  </radialGradient>
+</defs>
+<rect width='1600' height='900' fill='url(#bg)'/>
+<rect width='1600' height='900' fill='url(#fl)'/>
+<text x='120' y='760' fill='#ffe7d1' font-size='82' font-family='Inter,sans-serif' font-weight='700'>TAIFIRE · Thai Fire Massage</text>
+</svg>
