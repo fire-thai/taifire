@@ -1,11 +1,13 @@
 import { motion } from "motion/react";
 import { Flame, Phone, Mail, MapPin, ShieldCheck } from "lucide-react";
 
+const assetPath = (path: string) => `${import.meta.env.BASE_URL}${path}`;
+
 const galleryImages = [
-  "/images/massage-process-1.svg",
-  "/images/massage-process-2.svg",
-  "/images/massage-process-3.svg",
-  "/images/certificate.svg",
+  assetPath("images/massage-process-1.svg"),
+  assetPath("images/massage-process-2.svg"),
+  assetPath("images/massage-process-3.svg"),
+  assetPath("images/certificate.svg"),
 ];
 
 const benefits = [
@@ -23,7 +25,7 @@ export default function App() {
       <header className="sticky top-0 z-50 backdrop-blur-xl bg-[#120d0a]/70 border-b border-amber-700/20">
         <div className="mx-auto max-w-6xl px-6 py-4 flex items-center justify-between gap-4">
           <a href="#hero" className="flex items-center gap-3">
-            <img src="/images/logo-taifire.svg" alt="TAIFIRE Logo" className="h-12 w-12 rounded-full object-cover border border-amber-500/40" />
+            <img src={assetPath("images/logo-taifire.svg")} alt="TAIFIRE Logo" className="h-12 w-12 rounded-full object-cover border border-amber-500/40" />
             <div>
               <p className="text-xs uppercase tracking-[0.25em] text-amber-300/80">Thai Fire Massage</p>
               <p className="text-xl font-semibold tracking-wide">TAIFIRE</p>
@@ -45,7 +47,7 @@ export default function App() {
       <main>
         <section id="hero" className="relative">
           <div className="absolute inset-0">
-            <img src="/images/hero-bg.svg" alt="Вогняний масаж" className="w-full h-full object-cover" />
+            <img src={assetPath("images/hero-bg.svg")} alt="Вогняний масаж" className="w-full h-full object-cover" />
             <div className="absolute inset-0 bg-gradient-to-b from-black/65 via-black/60 to-[#0f0b08]" />
           </div>
 
