@@ -23,6 +23,8 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
     steps:
       - name: Checkout
@@ -31,8 +33,23 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 24
           cache: npm
+
+      - name: Ensure Pages uses GitHub Actions deployment
+        uses: actions/github-script@v8
+        with:
+          script: |
+            try {
+              await github.request('PATCH /repos/{owner}/{repo}/pages', {
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                build_type: 'workflow',
+              });
+              core.info('GitHub Pages is configured to deploy from workflows.');
+            } catch (error) {
+              core.warning(`Could not update GitHub Pages settings automatically: ${error.message}`);
+            }
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
