@@ -9,7 +9,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
   pages: write
   id-token: write
 
@@ -51,6 +51,24 @@ jobs:
               core.warning(`Could not update GitHub Pages settings automatically: ${error.message}`);
             }
 
+      - name: Ensure Pages has branch deployment fallback
+        uses: actions/github-script@v8
+        with:
+          script: |
+            try {
+              await github.request('PATCH /repos/{owner}/{repo}/pages', {
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                source: {
+                  branch: 'gh-pages',
+                  path: '/'
+                }
+              });
+              core.info('GitHub Pages fallback source set to gh-pages branch.');
+            } catch (error) {
+              core.warning(`Could not configure branch fallback automatically: ${error.message}`);
+            }
+
       - name: Setup Pages
         uses: actions/configure-pages@v5
 
@@ -74,6 +92,13 @@ jobs:
         uses: actions/upload-pages-artifact@v3
         with:
           path: ./dist
+
+      - name: Publish fallback to gh-pages branch
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
+          force_orphan: true
 
       - name: Deploy to GitHub Pages
         id: deployment
